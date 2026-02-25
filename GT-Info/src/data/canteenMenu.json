@@ -1,0 +1,16 @@
+{
+  "id": 1256,
+  "type": "kantineMenu",
+  "week": 9,
+  "showTime": false,
+  "time": 10,
+  "departureOffsetTime": 0,
+  "pictureUrl": "http://infoskaerm.techcollege.dk/media/1689/svitlana-vabbclifmvy-unsplash.jpg",
+  "days": [
+    { "dayName": "mandag", "dish": "Chipotle marineret svinekam med stegte kartofler kr. 35,00" },
+    { "dayName": "tirsdag", "dish": "Butterchicken med ris kr. 35,00" },
+    { "dayName": "onsdag", "dish": "Pasta bolognese kr. 35,00" },
+    { "dayName": "torsdag", "dish": "Svineskank med svampe og bulgur kr. 35,00" },
+    { "dayName": "fredag", "dish": "Kyllingelår i hvidvinssauce med stegte kartofler kr. 35,00" }
+  ]
+}
