@@ -27,7 +27,18 @@ export function TechSchedule() {
       <h2>Dagens Program</h2>
       <div>
         {(Array.isArray(data?.value) ? data.value : [])
-        .filter(schedule => schedule.Education === "Grafisk teknik.")
+        .filter(schedule => {
+          if (schedule.Education !== "Grafisk teknik.") return false;
+          const now = new Date();
+          const eventDate = new Date(schedule.StartDate);
+          eventDate.setHours(eventDate.getHours() + 1); // adjust for +1 hour
+          // Only today
+          const isToday =
+            eventDate.getFullYear() === now.getFullYear() &&
+            eventDate.getMonth() === now.getMonth() &&
+            eventDate.getDate() === now.getDate();
+          return eventDate >= now && isToday;
+        })
         .slice(0, 4)
         .map((schedule) => (
           <ul>
