@@ -6,7 +6,10 @@ export function TechSchedule() {
   const [reloadFlag, setReloadFlag] = React.useState(0);
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setReloadFlag(f => f + 1);
+      const hour = new Date().getHours();
+      if (hour >= 7 && hour < 17) {
+        setReloadFlag(f => f + 1);
+      }
     }, 600000); // 10 minutes
     return () => clearInterval(interval);
   }, []);
