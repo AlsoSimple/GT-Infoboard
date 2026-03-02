@@ -1,0 +1,33 @@
+<CanteenMenu xmlns:i="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.datacontract.org/2004/07/InfoSkaerm.App_Code.Models">
+  <DepartureOffsetTime>0</DepartureOffsetTime>
+  <Id>1256</Id>
+  <Schedules xmlns:d2p1="http://schemas.microsoft.com/2003/10/Serialization/Arrays"/>
+  <ShowTime>false</ShowTime>
+  <Time>10</Time>
+  <Type>kantineMenu</Type>
+  <Weather i:nil="true"/>
+  <Days>
+    <CanteenDay>
+      <DayName>mandag</DayName>
+      <Dish>Chipotle marineret svinekam med stegte kartofler kr. 35,00</Dish>
+    </CanteenDay>
+    <CanteenDay>
+      <DayName>tirsdag</DayName>
+      <Dish>Butterchicken med ris kr. 35,00</Dish>
+    </CanteenDay>
+    <CanteenDay>
+      <DayName>onsdag</DayName>
+      <Dish>Pasta bolognese kr. 35,00</Dish>
+    </CanteenDay>
+    <CanteenDay>
+      <DayName>torsdag</DayName>
+      <Dish>Svineskank med svampe og bulgur kr. 35,00</Dish>
+    </CanteenDay>
+    <CanteenDay>
+      <DayName>fredag</DayName>
+      <Dish>Kyllingelår i hvidvinssauce med stegte kartofler kr. 35,00</Dish>
+    </CanteenDay>
+  </Days>
+  <PictureUrl>http://infoskaerm.techcollege.dk/media/1689/svitlana-vabbclifmvy-unsplash.jpg</PictureUrl>
+  <Week>9</Week>
+</CanteenMenu>
