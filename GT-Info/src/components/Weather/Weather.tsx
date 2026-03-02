@@ -6,21 +6,31 @@ import FoggyIcon from "../../assets/icons/FoggyIcon.svg";
 import RainyIcon from "../../assets/icons/RainyIcon.svg";
 import SnowyIcon from "../../assets/icons/SnowyIcon.svg";
 import { useFetch } from "../../hooks/useFetch.ts";
+import React from "react";
 
 export function Weather() {
 
-
+  const [reloadFlag, setReloadFlag] = React.useState(0);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const hour = new Date().getHours();
+      if (hour >= 7 && hour < 17) {
+        setReloadFlag(f => f + 1);
+      }
+    }, 600000); // 10 minutes
+    return () => clearInterval(interval);
+  }, []);
   const { data, isLoading, error } = useFetch<any>(
-      'https://api.open-meteo.com/v1/forecast?latitude=57.048&longitude=9.9187&current_weather=true&timezone=auto'
-    );
-    console.log(data);
-    if (isLoading) {
-      return <h1>Loading data... {error}</h1>;
-    }
-  
-    if (error) {
-      return <h1>Error: {error}</h1>;
-    }
+    `https://api.open-meteo.com/v1/forecast?latitude=57.048&longitude=9.9187&current_weather=true&timezone=auto&reloadFlag=${reloadFlag}`
+  );
+  console.log(data);
+  if (isLoading) {
+    return <h1>Loading data... {error}</h1>;
+  }
+
+  if (error) {
+    return <h1>Error: {error}</h1>;
+  }
 
   // Map weather codes to icons
   const weatherCodeToIcon: Record<number, string> = {
