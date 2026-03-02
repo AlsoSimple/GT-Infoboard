@@ -49,18 +49,39 @@ export function TechSchedule() {
               {schedule.Room}
             </li>
             <li>
-              {schedule.Team}
+              {
+                schedule.Team && schedule.Team.substring(0, 4) === "h1gr"
+                ? "1. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h2gr"
+                ? "2. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h3gr"
+                ? "3. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h4gr"
+                ? "4. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "ggr0"
+                ? "grundforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h0gr"
+                ? "specialfag"
+                : schedule.Team
+                }
             </li>
             <li>
               {schedule.Subject}
             </li>
+            {/*             
+            skal ikke dispayes alligevel
             <li>
               {(() => {
                 const date = new Date(schedule.StartDate);
                 date.setHours(date.getHours() + 1);
                 return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
               })()}
-            </li>
+            </li> */}
           </ul>
         ))}
       </div>
