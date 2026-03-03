@@ -25,27 +25,38 @@ export function TechSchedule() {
     return <h1>Error: {error}</h1>;
   }
   
+  // Filter to only one item per team
+  const filteredSchedules = (Array.isArray(data?.value) ? data.value : [])
+    .filter(schedule => {
+      if (schedule.Education !== "Grafisk teknik.") return false;
+      const now = new Date();
+      const eventDate = new Date(schedule.StartDate);
+      eventDate.setHours(eventDate.getHours() + 1); // adjust for +1 hour
+      // Only today
+      const isToday =
+        eventDate.getFullYear() === now.getFullYear() &&
+        eventDate.getMonth() === now.getMonth() &&
+        eventDate.getDate() === now.getDate();
+      return eventDate >= now && isToday;
+    });
+
+  // Keep only the first schedule per team
+  const uniqueSchedules: Array<any> = [];
+  const seenTeams = new Set();
+  for (const schedule of filteredSchedules) {
+    if (!seenTeams.has(schedule.Team)) {
+      uniqueSchedules.push(schedule);
+      seenTeams.add(schedule.Team);
+    }
+  }
+
   return (
     <div>
       <h2>Dagens Program</h2>
       <div>
-        {(Array.isArray(data?.value) ? data.value : [])
-        .filter(schedule => {
-          if (schedule.Education !== "Grafisk teknik.") return false;
-          const now = new Date();
-          const eventDate = new Date(schedule.StartDate);
-          eventDate.setHours(eventDate.getHours() + 1); // adjust for +1 hour
-          // Only today
-          const isToday =
-            eventDate.getFullYear() === now.getFullYear() &&
-            eventDate.getMonth() === now.getMonth() &&
-            eventDate.getDate() === now.getDate();
-          return eventDate >= now && isToday;
-        })
-        .slice(0, 4)
-        .map((schedule) => (
-          <ul>
-            <li key={schedule.Team + schedule.StartDate}>
+        {uniqueSchedules.slice(0, 4).map((schedule) => (
+          <ul key={schedule.Team + schedule.StartDate}>
+            <li>
               {schedule.Room}
             </li>
             <li>
@@ -68,12 +79,12 @@ export function TechSchedule() {
                 schedule.Team && schedule.Team.substring(0, 4) === "h0gr"
                 ? "specialfag"
                 : schedule.Team
-                }
+              }
             </li>
             <li>
               {schedule.Subject}
             </li>
-            {/*             
+            {/*
             skal ikke dispayes alligevel
             <li>
               {(() => {
