@@ -1,0 +1,101 @@
+import React from "react";
+import { useFetch } from "../../hooks/useFetch"
+
+export function TechSchedule() {
+  
+  const [reloadFlag, setReloadFlag] = React.useState(0);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      const hour = new Date().getHours();
+      if (hour >= 7 && hour < 17) {
+        setReloadFlag(f => f + 1);
+      }
+    }, 600000); // 10 minutes
+    return () => clearInterval(interval);
+  }, []);
+  const { data, isLoading, error } = useFetch<Array<any>>(
+    `https://iws.itcn.dk/techcollege/schedules?departmentcode=smed&reloadFlag=${reloadFlag}`
+  );
+  console.log(data);
+  if (isLoading) {
+    return <h1>Loading data... {error}</h1>;
+  }
+
+  if (error) {
+    return <h1>Error: {error}</h1>;
+  }
+  
+  // Filter to only one item per team
+  const filteredSchedules = (Array.isArray(data?.value) ? data.value : [])
+    .filter(schedule => {
+      if (schedule.Education !== "Grafisk teknik.") return false;
+      const now = new Date();
+      const eventDate = new Date(schedule.StartDate);
+      eventDate.setHours(eventDate.getHours() + 1); // adjust for +1 hour
+      // Only today
+      const isToday =
+        eventDate.getFullYear() === now.getFullYear() &&
+        eventDate.getMonth() === now.getMonth() &&
+        eventDate.getDate() === now.getDate();
+      return eventDate >= now && isToday;
+    });
+
+  // Keep only the first schedule per team
+  const uniqueSchedules: Array<any> = [];
+  const seenTeams = new Set();
+  for (const schedule of filteredSchedules) {
+    if (!seenTeams.has(schedule.Team)) {
+      uniqueSchedules.push(schedule);
+      seenTeams.add(schedule.Team);
+    }
+  }
+
+  return (
+    <div>
+      <h2>Dagens Program</h2>
+      <div>
+        {uniqueSchedules.slice(0, 4).map((schedule) => (
+          <ul key={schedule.Team + schedule.StartDate}>
+            <li>
+              {schedule.Room}
+            </li>
+            <li>
+              {
+                schedule.Team && schedule.Team.substring(0, 4) === "h1gr"
+                ? "1. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h2gr"
+                ? "2. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h3gr"
+                ? "3. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h4gr"
+                ? "4. hovedforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "ggr0"
+                ? "grundforløb"
+                :
+                schedule.Team && schedule.Team.substring(0, 4) === "h0gr"
+                ? "specialfag"
+                : schedule.Team
+              }
+            </li>
+            <li>
+              {schedule.Subject}
+            </li>
+            {/*
+            skal ikke dispayes alligevel
+            <li>
+              {(() => {
+                const date = new Date(schedule.StartDate);
+                date.setHours(date.getHours() + 1);
+                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+              })()}
+            </li> */}
+          </ul>
+        ))}
+      </div>
+    </div>
+  )
+}
