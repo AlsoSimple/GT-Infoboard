@@ -1,0 +1,25 @@
+.carousel {
+  width: 100%;
+
+  .item {
+    width: 100%;
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: rgba(132, 132, 132, 0.3);
+
+      &.active {
+        background-color: rgba(50, 50, 50, 0.9);
+      }
+    }
+  }
+}

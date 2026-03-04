@@ -1,6 +1,7 @@
 
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { QRCodeImage } from "../QRCodeGenerator/QRCodeGenerator";
+import { Carousel } from "../Carousel/Carousel";
 
 interface RSSItem {
 	title: string;
@@ -42,33 +43,34 @@ export function RSSNews() {
 				setItems(data);
 				setLoading(false);
 			})
-			.catch((err) => {
+			.catch((_err) => {
 				setError("Failed to load RSS feed");
 				setLoading(false);
 			});
 	}, []);
 	console.log(items);
-	
 
 	if (loading) return <div>Loading news...</div>;
 	if (error) return <div>{error}</div>;
 
 	return (
-		<div id="feed">
-			{items.map((item, idx) => (
-				<article className="feed-item" key={idx}>
+		<Carousel
+			items={items}
+			interval={8000}
+			renderItem={(item) => (
+				<article className="feed-item">
 					<h2>{item.title}</h2>
 					<section
-            className="feed-description"
-            dangerouslySetInnerHTML={{ __html: item.description }}
-          />
+						className="feed-description"
+						dangerouslySetInnerHTML={{ __html: item.description }}
+					/>
 					{item.link && (
 						<div className="qr-code">
 							<QRCodeImage url={item.link} size={100} alt={`QR code for ${item.title}`} />
 						</div>
 					)}
 				</article>
-			))}
-		</div>
+			)}
+		/>
 	);
 }
