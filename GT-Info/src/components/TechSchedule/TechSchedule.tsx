@@ -37,29 +37,50 @@ export function TechSchedule() {
     return <h1>Error: {error}</h1>;
   }
   
-  // Filter to only one item per team
-  const filteredSchedules = (Array.isArray(data?.value) ? data.value : [])
-    .filter(schedule => {
-      if (schedule.Education !== "Grafisk teknik.") return false;
-      const now = new Date();
+  // Get all today's events for the right education
+  const allSchedules = (Array.isArray(data?.value) ? data.value : [])
+    .filter(schedule => schedule.Education === "Grafisk teknik.");
+
+  const now = new Date();
+  // Find events for today that are still upcoming
+  const todayUpcoming = allSchedules.filter(schedule => {
+    const eventDate = new Date(schedule.StartDate);
+    eventDate.setHours(eventDate.getHours() + 1);
+    const isToday =
+      eventDate.getFullYear() === now.getFullYear() &&
+      eventDate.getMonth() === now.getMonth() &&
+      eventDate.getDate() === now.getDate();
+    return eventDate >= now && isToday;
+  });
+
+  let uniqueSchedules: Array<any> = [];
+  if (todayUpcoming.length > 0) {
+    // Show next upcoming event per team
+    const seenTeams = new Set();
+    for (const schedule of todayUpcoming) {
+      if (!seenTeams.has(schedule.Team)) {
+        uniqueSchedules.push(schedule);
+        seenTeams.add(schedule.Team);
+      }
+    }
+  } else {
+    // If no more events today, show the last event for each team from today
+    const lastEventPerTeam = new Map();
+    for (const schedule of allSchedules) {
       const eventDate = new Date(schedule.StartDate);
-      eventDate.setHours(eventDate.getHours() + 1); // adjust for +1 hour
-      // Only today
+      eventDate.setHours(eventDate.getHours() + 1);
       const isToday =
         eventDate.getFullYear() === now.getFullYear() &&
         eventDate.getMonth() === now.getMonth() &&
         eventDate.getDate() === now.getDate();
-      return eventDate >= now && isToday;
-    });
-
-  // Keep only the first schedule per team
-  const uniqueSchedules: Array<any> = [];
-  const seenTeams = new Set();
-  for (const schedule of filteredSchedules) {
-    if (!seenTeams.has(schedule.Team)) {
-      uniqueSchedules.push(schedule);
-      seenTeams.add(schedule.Team);
+      if (isToday) {
+        // Always keep the latest event for each team
+        if (!lastEventPerTeam.has(schedule.Team) || eventDate > new Date(lastEventPerTeam.get(schedule.Team).StartDate)) {
+          lastEventPerTeam.set(schedule.Team, schedule);
+        }
+      }
     }
+    uniqueSchedules = Array.from(lastEventPerTeam.values());
   }
 
   return (
