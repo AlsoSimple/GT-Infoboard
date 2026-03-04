@@ -1,0 +1,24 @@
+$orange: #F4690C;
+$light-orange: #F7C894;
+$dark-green: #146D57;
+$light-green: #97BEAC;
+$dark-blue: #1E2339;
+$medium-blue: #7C82D6;
+$light-blue: #B5B5FF;
+$dark-yellow: #F0A901;
+$light-yellow: #F5C961;
+
+
+// fonts
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+$main-font: 'Inter', sans-serif;
+
+// may need to be changed later
+// converted from the figma 4k design, using https://cssunitconverter.vercel.app/px-to-vw
+$header-font-size-xl: 2.604vw;
+$header-font-size: 1.667vw;
+$main-text-font-size: 1vw;
+
+
+
