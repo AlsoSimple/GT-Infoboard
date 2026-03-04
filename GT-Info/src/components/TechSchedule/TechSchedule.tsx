@@ -1,7 +1,19 @@
 import React from "react";
 import { useFetch } from "../../hooks/useFetch"
+import style from './TechSchedule.module.scss'
 
 export function TechSchedule() {
+    // Example team-to-color mapping
+    const teamColors: Record<string, string> = {
+      h1gr: '#F4690C', 
+      h2gr: '#F7C894', 
+      h3gr: '#146D57', 
+      h4gr: '#C23B22', 
+      ggr0: '#F0A901', 
+      h0gr: '#97BEAC', 
+      // fallback/default color
+      default: '#B5B5FF',
+    };
   
   const [reloadFlag, setReloadFlag] = React.useState(0);
   React.useEffect(() => {
@@ -51,50 +63,49 @@ export function TechSchedule() {
   }
 
   return (
-    <div>
+    <div className={style.techScheduleContainer}>
       <h2>Dagens Program</h2>
       <div>
-        {uniqueSchedules.slice(0, 4).map((schedule) => (
-          <ul key={schedule.Team + schedule.StartDate}>
-            <li>
-              {schedule.Room}
-            </li>
-            <li>
-              {
-                schedule.Team && schedule.Team.substring(0, 4) === "h1gr"
-                ? "1. hovedforløb"
-                :
-                schedule.Team && schedule.Team.substring(0, 4) === "h2gr"
-                ? "2. hovedforløb"
-                :
-                schedule.Team && schedule.Team.substring(0, 4) === "h3gr"
-                ? "3. hovedforløb"
-                :
-                schedule.Team && schedule.Team.substring(0, 4) === "h4gr"
-                ? "4. hovedforløb"
-                :
-                schedule.Team && schedule.Team.substring(0, 4) === "ggr0"
-                ? "grundforløb"
-                :
-                schedule.Team && schedule.Team.substring(0, 4) === "h0gr"
-                ? "specialfag"
-                : schedule.Team
-              }
-            </li>
-            <li>
-              {schedule.Subject}
-            </li>
-            {/*
-            skal ikke dispayes alligevel
-            <li>
-              {(() => {
-                const date = new Date(schedule.StartDate);
-                date.setHours(date.getHours() + 1);
-                return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-              })()}
-            </li> */}
-          </ul>
-        ))}
+        {uniqueSchedules.slice(0, 4).map((schedule) => {
+          const teamKey = schedule.Team ? schedule.Team.substring(0, 4) : 'default';
+          const color = teamColors[teamKey] || teamColors.default;
+          return (
+            <ul key={schedule.Team + schedule.StartDate} style={{ backgroundColor: color }}>
+              <li>
+                {schedule.Room}
+              </li>
+              <li>
+                {
+                  teamKey === "h1gr"
+                  ? "1. hovedforløb"
+                  : teamKey === "h2gr"
+                  ? "2. hovedforløb"
+                  : teamKey === "h3gr"
+                  ? "3. hovedforløb"
+                  : teamKey === "h4gr"
+                  ? "4. hovedforløb"
+                  : teamKey === "ggr0"
+                  ? "grundforløb"
+                  : teamKey === "h0gr"
+                  ? "specialfag"
+                  : schedule.Team
+                }
+              </li>
+              <li>
+                {schedule.Subject}
+              </li>
+              {/*
+              skal ikke dispayes alligevel
+              <li>
+                {(() => {
+                  const date = new Date(schedule.StartDate);
+                  date.setHours(date.getHours() + 1);
+                  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+                })()}
+              </li> */}
+            </ul>
+          );
+        })}
       </div>
     </div>
   )
