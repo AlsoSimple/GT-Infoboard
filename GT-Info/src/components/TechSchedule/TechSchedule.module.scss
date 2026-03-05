@@ -1,0 +1,46 @@
+@use '../../styles/globals.scss';
+
+
+
+.techScheduleContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  font-family: globals.$main-font;
+    h2 {
+      font-size: globals.$header-font-size;
+      text-transform: uppercase;
+      border-bottom: globals.$text-bottom-border;
+      width: 100%;
+      text-align: center;
+    }
+    div{
+      display: flex;
+      flex-direction: column;
+      gap: 4vh;
+      width: 100%;
+      ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        border-radius: 15vw;
+        li {
+          border-radius: 15vw;
+          padding: 1vw;;
+          text-transform: uppercase;          
+          
+        }
+        li:first-of-type{
+          background-color: inherit;
+          filter: hue-rotate(-25deg) brightness(0.9);
+        }
+        li:last-of-type{
+          width: 33%;
+          margin-left: auto;
+        }
+        
+      }
+    }
+}

@@ -1,5 +1,6 @@
 import events from '../../data/events.json';
 import { Carousel } from '../Carousel/Carousel';
+import style from './Events.module.scss'
 
 interface Event {
   startDate: string;
@@ -26,6 +27,7 @@ export function Events() {
   });
 
   return (
+    <div className={style.eventsContainer}>
     <Carousel
       items={relevantEvents}
       interval={7000}
@@ -41,5 +43,6 @@ export function Events() {
         </div>
       )}
     />
+    </div>
   );
 }

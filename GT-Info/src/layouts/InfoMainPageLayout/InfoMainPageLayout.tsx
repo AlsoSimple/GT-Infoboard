@@ -10,15 +10,16 @@ export const InfoMainPageLayout = () => {
   
   return(
     <main className={style.infoMainPageLayout}>
-      <CanteenMenu></CanteenMenu>
+      <div className={style.infoLeftCol}>
+        <CanteenMenu></CanteenMenu>
+      </div>
       <div className={style.infoCenterCol}>
         <div className={style.infoDateWeather}>
           <DateAndTime></DateAndTime>
-          <Weather />
         </div>
         <RSSNews />
       </div>
-      <div className={style.infoScheduleEvents}>
+      <div className={style.infoRightCol}>
         <TechSchedule />
         <Events />
       </div>

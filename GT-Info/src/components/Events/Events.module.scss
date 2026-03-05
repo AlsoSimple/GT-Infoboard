@@ -1,0 +1,14 @@
+@use '../../styles/globals.scss';
+.eventsContainer {
+  display: flex;
+  flex-direction: column;
+  background-color: globals.$dark-blue-transparent;
+  padding: 2vw;
+  height: 30%;
+  border-radius: globals.$container-border-radius;
+  
+  p {
+    color: globals.$text-color;
+    font-size: globals.$main-text-font-size
+  }
+}

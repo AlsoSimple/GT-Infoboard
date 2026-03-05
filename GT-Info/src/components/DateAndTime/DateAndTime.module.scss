@@ -1,0 +1,24 @@
+@use '../../styles/globals.scss';
+
+.dateTimeContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.timeWeather {
+  display: flex;
+  gap: 30px;
+  // border-bottom: globals.$text-bottom-border;
+  h2 {
+    font-size: 6vw;
+    margin: 0;
+    padding: 0;
+  }
+}
+.weatherDate {
+  margin: 0;
+  font-size: globals.$header-font-size;
+}

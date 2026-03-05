@@ -1,0 +1,38 @@
+@use '../../styles/globals.scss';
+
+.rssNewsContainer {
+  background-color: globals.$dark-blue-transparent;
+  border-radius: globals.$container-border-radius;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .feedItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    h2 {
+      font-size: globals.$header-font-size;
+      margin: 0;
+    }
+    .feedDescription {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        font-size: globals.$main-text-font-size;
+      }
+      p:last-of-type {
+        display: none;
+      }
+      div {
+        img{
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+
+}

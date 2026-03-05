@@ -7,6 +7,7 @@ import RainyIcon from "../../assets/icons/RainyIcon.svg";
 import SnowyIcon from "../../assets/icons/SnowyIcon.svg";
 import { useFetch } from "../../hooks/useFetch.ts";
 import React from "react";
+import style from './Weather.module.scss';
 
 export function Weather() {
 
@@ -68,8 +69,8 @@ export function Weather() {
   const weatherIcon = weatherCodeToIcon[weatherCode] || cloudIcon;
 
   return(
-    <div>
-      <img src={weatherIcon} alt="Weather icon" style={{ width: 64, height: 64, backgroundColor: "black"}} /> {/* styling is temporary */}
+    <div className={style.weatherContainer}>
+      <img src={weatherIcon} alt="Weather icon"  />
       <p>{data?.current_weather?.temperature}°C</p>
     </div>
   )

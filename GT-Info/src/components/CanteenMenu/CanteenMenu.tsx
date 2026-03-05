@@ -1,5 +1,6 @@
 /** Import dummy data */
 import canteenMenu from "../../Data/canteenMenu.json";
+import style from './CanteenMenu.module.scss'
 
 /** Interfaces */
 interface CanteenDay {
@@ -31,11 +32,12 @@ export function CanteenMenu() {
   );
 
   return (
-    <div>
+    <div className={style.canteenMenuContainer}>
+      <h2>Ugens Menu</h2>
       {remainingDays.map((day) => (
         <p key={day.dayName}>
           {/* Capitalize first letter of day */}
-          <strong>{day.dayName.charAt(0).toUpperCase() + day.dayName.slice(1)}</strong>: {day.dish}
+          <strong>{day.dayName.charAt(0).toUpperCase() + day.dayName.slice(1)}:</strong> <p>{day.dish}</p>
         </p>
       ))}
     </div>
