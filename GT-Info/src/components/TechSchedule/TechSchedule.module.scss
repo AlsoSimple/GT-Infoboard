@@ -1,16 +1,12 @@
 @use '../../styles/globals.scss';
 
-main {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  background-color: #333;
-  color: white;
-}
+
 
 .techScheduleContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
   font-family: globals.$main-font;
     h2 {
       font-size: globals.$header-font-size;
@@ -21,6 +17,7 @@ main {
       display: flex;
       flex-direction: column;
       gap: 5vh;
+      width: 100%;
       ul{
         list-style: none;
         padding: 0;
@@ -29,13 +26,17 @@ main {
         border-radius: 15vw;
         li {
           border-radius: 15vw;
-          padding: 1vw;
+          padding: 1vw;;
           text-transform: uppercase;          
-
+          
         }
         li:first-of-type{
           background-color: inherit;
-          filter: hue-rotate(-30deg);
+          filter: hue-rotate(-25deg) brightness(0.9);
+        }
+        li:last-of-type{
+          width: 33%;
+          margin-left: auto;
         }
         
       }
