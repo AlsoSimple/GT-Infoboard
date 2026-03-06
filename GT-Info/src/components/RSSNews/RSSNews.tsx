@@ -68,7 +68,7 @@ export function RSSNews() {
 						/>
 						{item.link && (
 							<div className={style.qrCode}>
-								<QRCodeImage url={item.link} size={150} alt={`QR code for ${item.title}`} />
+								<QRCodeImage url={item.link} size={125} alt={`QR code for ${item.title}`} />
 							</div>
 						)}
 					</article>

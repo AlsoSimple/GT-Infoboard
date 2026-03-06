@@ -6,20 +6,25 @@
   display: flex;
   justify-content: center;
   padding: 20px;
-  height: 60%;
+  height: 70%;
 
   .feedItem {
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100%;
     gap: 20px;
+    position: relative;
     h2 {
       font-size: globals.$header-font-size;
       margin: 0;
       padding: 0.5vw 0;
+      height: 20%;
+      width: 100%;
     }
     .qrCode {
-
+      position: absolute;
+      bottom: 0;
     }
     .feedDescription {
       margin: 0;
