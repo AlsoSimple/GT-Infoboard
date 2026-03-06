@@ -1,0 +1,28 @@
+@use '../../styles/globals.scss';
+
+
+.canteenMenuContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 20px;
+
+  h2{
+      font-size: globals.$header-font-size;
+      text-transform: uppercase;
+      text-align: center;
+      border-bottom: globals.$text-bottom-border;
+  }
+
+  p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    font-size: globals.$header-font-size;
+    margin: 0;
+    p{
+      font-size: globals.$main-text-font-size;
+      margin: 5px 0;
+    }
+  }
+}

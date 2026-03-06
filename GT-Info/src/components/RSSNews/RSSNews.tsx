@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { QRCodeImage } from "../QRCodeGenerator/QRCodeGenerator";
 import { Carousel } from "../Carousel/Carousel";
+import style from './RSSNews.module.scss'
 
 interface RSSItem {
 	title: string;
@@ -54,23 +55,25 @@ export function RSSNews() {
 	if (error) return <div>{error}</div>;
 
 	return (
-		<Carousel
-			items={items}
-			interval={8000}
-			renderItem={(item) => (
-				<article className="feed-item">
-					<h2>{item.title}</h2>
-					<section
-						className="feed-description"
-						dangerouslySetInnerHTML={{ __html: item.description }}
-					/>
-					{item.link && (
-						<div className="qr-code">
-							<QRCodeImage url={item.link} size={100} alt={`QR code for ${item.title}`} />
-						</div>
-					)}
-				</article>
-			)}
-		/>
+		<div className={style.rssNewsContainer}>
+			<Carousel
+				items={items}
+				interval={8000}
+				renderItem={(item) => (
+					<article className={style.feedItem}>
+						<h2>{item.title}</h2>
+						<section
+							className={style.feedDescription}
+							dangerouslySetInnerHTML={{ __html: item.description }}
+						/>
+						{item.link && (
+							<div className={style.qrCode}>
+								<QRCodeImage url={item.link} size={125} alt={`QR code for ${item.title}`} />
+							</div>
+						)}
+					</article>
+				)}
+			/>
+		</div>
 	);
 }

@@ -1,0 +1,19 @@
+@use '../../styles/globals.scss';
+
+.weatherContainer {
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  img{
+    width: 3vw;
+    color: globals.$text-color;
+  }
+  p{
+    padding: 0;
+    margin: 0;
+    font-size: globals.$main-text-font-size;
+  }
+}
