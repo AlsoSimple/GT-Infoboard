@@ -10,8 +10,10 @@
 
 .timeWeather {
   display: flex;
+  justify-content: center;
+  width: 100%;
   gap: 30px;
-  // border-bottom: globals.$text-bottom-border;
+  border-bottom: globals.$text-bottom-border;
   h2 {
     font-size: 6vw;
     margin: 0;

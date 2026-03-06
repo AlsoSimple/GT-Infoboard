@@ -67,8 +67,8 @@ export function RSSNews() {
 							dangerouslySetInnerHTML={{ __html: item.description }}
 						/>
 						{item.link && (
-							<div className="qr-code">
-								<QRCodeImage url={item.link} size={100} alt={`QR code for ${item.title}`} />
+							<div className={style.qrCode}>
+								<QRCodeImage url={item.link} size={150} alt={`QR code for ${item.title}`} />
 							</div>
 						)}
 					</article>

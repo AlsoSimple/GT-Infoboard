@@ -6,15 +6,20 @@
   display: flex;
   justify-content: center;
   padding: 20px;
+  height: 60%;
 
   .feedItem {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
     h2 {
       font-size: globals.$header-font-size;
       margin: 0;
+      padding: 0.5vw 0;
+    }
+    .qrCode {
+
     }
     .feedDescription {
       margin: 0;
@@ -29,7 +34,9 @@
       }
       div {
         img{
-          margin: 0 !important;
+          margin: 0;
+          width: 100%;
+          object-fit: cover;
         }
       }
     }

@@ -10,7 +10,7 @@ body {
 
 .infoMainPageLayout {
   display: grid;
-  grid-template-columns: repeat(10, 1fr);
+  grid-template-columns: repeat(3, 1fr); // can be grid 10 with the commented out grid-columns
   gap: 20px;
   height: 100vh;
   width: 100vw;
@@ -26,7 +26,7 @@ body {
 
 .infoLeftCol {
   background-color: globals.$dark-blue-transparent;
-  grid-column: 1 / 4;
+  // grid-column: 1 / 4;
 }
 
 
@@ -34,7 +34,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  grid-column: 4 / 8;
+  // grid-column: 4 / 8;
   padding-bottom: 20px;
 }
 
@@ -44,5 +44,5 @@ body {
   flex-direction: column;
   justify-content: space-between;
   padding: 20px;
-  grid-column: 8 / 11;
+  // grid-column: 8 / 11;
 }
