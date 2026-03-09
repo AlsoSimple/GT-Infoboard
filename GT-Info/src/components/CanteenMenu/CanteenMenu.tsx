@@ -1,15 +1,15 @@
-/** Import dummy data */
-import canteenMenu from "../../Data/canteenMenu.json";
+/** Import fetch hook */
+import { useFetch } from "../../hooks/useFetch";
 import style from './CanteenMenu.module.scss'
 
 /** Interfaces */
 interface CanteenDay {
-  dayName: string;
-  dish: string;
+  DayName: string;
+  Dish: string;
 }
 
 interface CanteenMenuData {
-  days: CanteenDay[];
+  Days: CanteenDay[];
 }
 
 /** Map Danish day names to JS day index (0 = Sunday) */
@@ -23,21 +23,51 @@ const dayIndex: Record<string, number> = {
 
 /** Displays the canteen menu: (day: dish)*/
 export function CanteenMenu() {
-  const menu = canteenMenu as CanteenMenuData;
+  const { data: menu, isLoading, error } = useFetch<CanteenMenuData>(
+    "https://infoskaerm.techcollege.dk/umbraco/api/content/getcanteenmenu/?type=json"
+  );
+
   const today = new Date().getDay();
 
+  if (isLoading) {
+    return (
+      <div className={style.canteenMenuContainer}>
+        <h2>Ugens Menu</h2>
+        <p>Indlæser...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className={style.canteenMenuContainer}>
+        <h2>Ugens Menu</h2>
+        <p>Fejl: {error}</p>
+      </div>
+    );
+  }
+
+  if (!menu || !menu.Days) {
+    return (
+      <div className={style.canteenMenuContainer}>
+        <h2>Ugens Menu</h2>
+        <p>Ingen data tilgængelig</p>
+      </div>
+    );
+  }
+
   // Only keep today and future days
-  const remainingDays = menu.days.filter(
-    (day) => (dayIndex[day.dayName] ?? 0) >= today
+  const remainingDays = menu.Days.filter(
+    (day) => (dayIndex[day.DayName] ?? 0) >= today
   );
 
   return (
     <div className={style.canteenMenuContainer}>
       <h2>Ugens Menu</h2>
       {remainingDays.map((day) => (
-        <p key={day.dayName}>
+        <p key={day.DayName}>
           {/* Capitalize first letter of day */}
-          <strong>{day.dayName.charAt(0).toUpperCase() + day.dayName.slice(1)}:</strong> <p>{day.dish}</p>
+          <strong>{day.DayName.charAt(0).toUpperCase() + day.DayName.slice(1)}:</strong> <p>{day.Dish}</p>
         </p>
       ))}
     </div>
