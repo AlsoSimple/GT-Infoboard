@@ -1,0 +1,7 @@
+[build]
+  base = "GT-Info"
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
