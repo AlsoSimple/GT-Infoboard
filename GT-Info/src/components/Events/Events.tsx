@@ -16,6 +16,10 @@ function formatDate(dateStr: string): string {
   return date.toLocaleDateString('da-DK', { day: 'numeric', month: 'long' });
 }
 
+function normalizeEventText(text: string): string {
+  return text.replace(/\\r\\n|\\n|\\r/g, '\n');
+}
+
 export function Events() {
   const [events, setEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -118,7 +122,7 @@ export function Events() {
                 <> – {formatDate(event.endDate)}</>
               )}
             </p>
-            <p>{event.text}</p>
+            <p className={style.eventText}>{normalizeEventText(event.text)}</p>
           </div>
         )}
       />

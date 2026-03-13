@@ -11,4 +11,8 @@
     color: globals.$text-color;
     font-size: globals.$main-text-font-size
   }
+
+  .eventText {
+    white-space: pre-line;
+  }
 }
