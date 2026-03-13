@@ -1,6 +1,4 @@
 
-import React from "react";
-
 export interface QRCodeImageProps {
 	url: string;
 	size?: number;

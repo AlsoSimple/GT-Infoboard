@@ -2,6 +2,18 @@ import React from "react";
 import { useFetch } from "../../hooks/useFetch"
 import style from './TechSchedule.module.scss'
 
+interface ScheduleItem {
+  Education: string;
+  StartDate: string;
+  Team: string;
+  Room: string;
+  Subject: string;
+}
+
+interface ScheduleApiResponse {
+  value?: ScheduleItem[];
+}
+
 export function TechSchedule() {
     // Example team-to-color mapping
     const teamColors: Record<string, string> = {
@@ -25,10 +37,10 @@ export function TechSchedule() {
     }, 600000); // 10 minutes
     return () => clearInterval(interval);
   }, []);
-  const { data, isLoading, error } = useFetch<Array<any>>(
+  const { data, isLoading, error } = useFetch<ScheduleApiResponse>(
     `https://iws.itcn.dk/techcollege/schedules?departmentcode=smed&reloadFlag=${reloadFlag}`
   );
-  console.log(data);
+
   if (isLoading) {
     return <h1>Loading data... {error}</h1>;
   }
@@ -39,11 +51,11 @@ export function TechSchedule() {
   
   // Get all today's events for the right education
   const allSchedules = (Array.isArray(data?.value) ? data.value : [])
-    .filter(schedule => schedule.Education === "Grafisk teknik.");
+    .filter((schedule) => schedule.Education === "Grafisk teknik.");
 
   const now = new Date();
   // Find events for today that are still upcoming
-  const todayUpcoming = allSchedules.filter(schedule => {
+  const todayUpcoming = allSchedules.filter((schedule) => {
     const eventDate = new Date(schedule.StartDate);
     eventDate.setHours(eventDate.getHours() + 1);
     const isToday =
@@ -53,7 +65,7 @@ export function TechSchedule() {
     return eventDate >= now && isToday;
   });
 
-  let uniqueSchedules: Array<any> = [];
+  let uniqueSchedules: ScheduleItem[] = [];
   if (todayUpcoming.length > 0) {
     // Show next upcoming event per team
     const seenTeams = new Set();
@@ -65,7 +77,7 @@ export function TechSchedule() {
     }
   } else {
     // If no more events today, show the last event for each team from today
-    const lastEventPerTeam = new Map();
+    const lastEventPerTeam = new Map<string, ScheduleItem>();
     for (const schedule of allSchedules) {
       const eventDate = new Date(schedule.StartDate);
       eventDate.setHours(eventDate.getHours() + 1);
@@ -74,8 +86,9 @@ export function TechSchedule() {
         eventDate.getMonth() === now.getMonth() &&
         eventDate.getDate() === now.getDate();
       if (isToday) {
+        const previousEvent = lastEventPerTeam.get(schedule.Team);
         // Always keep the latest event for each team
-        if (!lastEventPerTeam.has(schedule.Team) || eventDate > new Date(lastEventPerTeam.get(schedule.Team).StartDate)) {
+        if (!previousEvent || eventDate > new Date(previousEvent.StartDate)) {
           lastEventPerTeam.set(schedule.Team, schedule);
         }
       }
