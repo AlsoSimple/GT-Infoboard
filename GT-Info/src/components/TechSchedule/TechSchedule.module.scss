@@ -18,7 +18,6 @@
     div{
       display: flex;
       flex-direction: column;
-      gap: 4vh;
       width: 100%;
       ul{
         list-style: none;
@@ -42,6 +41,10 @@
           margin-left: auto;
         }
         
+      }
+
+      ul + ul {
+        margin-top: 4vh;
       }
     }
 }

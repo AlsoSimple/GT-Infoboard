@@ -4,8 +4,11 @@
 .canteenMenuContainer {
   display: flex;
   flex-direction: column;
-  gap: 32px;
   padding: 20px;
+
+  > * + * {
+    margin-top: 32px;
+  }
 
   h2{
       font-size: globals.$header-font-size;
@@ -15,14 +18,11 @@
   }
 
   p {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    font-size: globals.$header-font-size;
+    font-size: globals.$main-text-font-size;
     margin: 0;
-    p{
-      font-size: globals.$main-text-font-size;
-      margin: 5px 0;
+
+    strong {
+      font-size: globals.$header-font-size;
     }
   }
 }
